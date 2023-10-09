@@ -15,19 +15,19 @@ def vraag():
         pogingSet = False
     else:
         print(pogingQ +" Word niet herkend, kies opniew")
-
         #Main Settings above
         #specific Setting under
-
+    HoogteInt = int(hoogte)
     if vraag == "b":
-        print("tegen een bot")
-        HoogteInt = int(hoogte)
+        print("tegen een bot")    
         antw = random.randint(0,HoogteInt)
         game_bot(antw, pogingSet, hvlpogingen)
 
     elif vraag == "p":
         naam = input("kies de naam voor player 2: ")
-        getal = int(input(naam +" kies een getal tussen de 1 en " +hoogte +" :"))
+        getal = int(input(naam +" kies een getal tussen de 0 en " +hoogte +" :"))
+        while getal > HoogteInt:
+            getal = int(input("dit getal overschreid de maximum hoogte, gies een nieuw getal tussen de 0 en " +hoogte +" :"))
         game_player(getal, pogingSet, hvlpogingen)
 
     else:
@@ -35,7 +35,7 @@ def vraag():
         vraag()
     
 def game_player(antw, pogingSet, hvlpogingen): #Game Function for against an other Player
-    WStatus = False
+    WStatus = False #Win Status AutoSet to lose in case something went wrong
     if pogingSet == True:
         while hvlpogingen > 0 and WStatus==False:
             print("nog", hvlpogingen ,"pogingen")
@@ -44,12 +44,14 @@ def game_player(antw, pogingSet, hvlpogingen): #Game Function for against an oth
                 print("goed geraden, dit is het juiste antwoord")
                 WStatus = True
             else:
-                print("fout probeer nog eens")
+                HorL(vraag, antw)
                 hvlpogingen -= 1
     else:
         vraag = None
         while vraag != antw or vraag == None:
             vraag = int(input("doe eens een gok wat het getal is: "))
+            if vraag != antw:
+                HorL(vraag, antw)
         else:
             print("goed geraden, dit is het juiste antwoord!")
             WStatus = True
@@ -57,7 +59,7 @@ def game_player(antw, pogingSet, hvlpogingen): #Game Function for against an oth
 
 
 def game_bot(antw, pogingSet, hvlpogingen): #Game Function for agaisnt a bot
-#    print(antw)
+    print(antw)
     WStatus = False
     if pogingSet == True:
         while hvlpogingen > 0 and WStatus==False:
@@ -67,21 +69,28 @@ def game_bot(antw, pogingSet, hvlpogingen): #Game Function for agaisnt a bot
                 print("goed geraden, dit is het juiste antwoord")
                 WStatus = True
             else:
-                print("fout probeer nog eens")
+                HorL(vraag, antw)
                 hvlpogingen -= 1
     else:
         vraag = None
         while vraag != antw or vraag == None:
             vraag = int(input("doe eens een gok wat het getal is: "))
+            if vraag != antw:
+                HorL(vraag, antw)
         else:
             print("goed geraden, dit is het juiste antwoord!")
             WStatus = True
-    print(antw)
+    print("het antwoord was: ", antw)
     exit(WStatus)
 
+def HorL(vraag, antwoord): #Higher or Lower
+    if vraag > antwoord:
+        print("getal moet lager zijn")
+    else:
+        print("getal moet hoger zijn")
 
 
-def exit(WOL):
+def exit(WOL): #Winnder or Loser
     if WOL == True:
         print("gefeliciteerd !")
     else:
@@ -89,6 +98,3 @@ def exit(WOL):
 
 print("welkom bij de getallen rader !")
 vraag()
-
-
-
