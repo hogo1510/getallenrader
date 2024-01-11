@@ -27,14 +27,14 @@ def vraag():
         naam = input("kies de naam voor player 2: ")
         getal = int(input(naam +" kies een getal tussen de 0 en " +hoogte +" :"))
         while getal > HoogteInt:
-            getal = int(input("dit getal overschreid de maximum hoogte, gies een nieuw getal tussen de 0 en " +hoogte +" :"))
+            getal = int(input("dit getal overschreid de maximum hoogte, kies een nieuw getal tussen de 0 en " +hoogte +" :"))
         game_player(getal, pogingSet, hvlpogingen)
 
     else:
         print(vraag +" wordt niet herkend, kies opniew")
         vraag()
     
-def game_player(antw, pogingSet, hvlpogingen): #Game Function for against an other Player
+def game_player(antw, pogingSet, hvlpogingen): #Game Function for against a other Player
     WStatus = False #Win Status AutoSet to lose in case something went wrong
     if pogingSet == True:
         while hvlpogingen > 0 and WStatus==False:
